@@ -3,7 +3,6 @@ import React from "react";
 import { Typography, Button, Box } from "@mui/material";
 
 import Dice from "./components/Dice";
-import "./App.css";
 
 function App() {
   const [dice, setDice] = React.useState(generateTenDice());
