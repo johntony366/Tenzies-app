@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography, Button, Grid } from "@mui/material";
+import { Typography, Button, Grid, Box } from "@mui/material";
 
 import Dice from "./components/Dice";
 import Die from "./components/Die";
@@ -41,6 +41,17 @@ function App() {
     });
   }
 
+  function resetDice() {
+    setDice((oldDice) => {
+      return oldDice.map((oldDie) => {
+        return {
+          isSuppressed: false,
+          value: simulateDieToss(),
+        };
+      });
+    });
+  }
+
   function handleDieClick(e) {
     setDice((oldDice) => {
       return oldDice.map((oldDie) => {
@@ -53,6 +64,13 @@ function App() {
           return oldDie;
         }
       });
+    });
+  }
+
+  function checkAllDiceSame() {
+    const value = dice[0].value;
+    return dice.every((die) => {
+      return die.isSuppressed && die.value === value;
     });
   }
 
@@ -69,8 +87,30 @@ function App() {
     );
   });
 
-  return (
-    <main className="main">
+  const victoryElements = (
+    <Box
+      className="victoryElements"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      gap={4}
+    >
+      <Typography variant="h1">You win!</Typography>
+      <Button variant="contained" sx={{ fontSize: 30 }} onClick={resetDice}>
+        Play Again
+      </Button>
+    </Box>
+  );
+  const gameElements = (
+    <Box
+      className="gameElements"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      gap={4}
+    >
       <Typography variant="h1">Tenzies</Typography>
       <Typography variant="h5" sx={{ width: 400, color: "grey.600" }}>
         Roll until all dice are the same. Click each die to freeze it at its
@@ -80,6 +120,12 @@ function App() {
       <Button variant="contained" sx={{ fontSize: 30 }} onClick={tossDice}>
         Roll
       </Button>
+    </Box>
+  );
+
+  return (
+    <main className="main">
+      {checkAllDiceSame() ? victoryElements : gameElements}
     </main>
   );
 }
