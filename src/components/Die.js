@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-export default function Die({ onClickHandler, value, id, isSuppressed }) {
+export default function Die({ onClickHandler, value, id, isSuppressed, dice }) {
   return (
     <div className="die">
       <Button

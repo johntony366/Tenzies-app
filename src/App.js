@@ -43,16 +43,18 @@ function App() {
 
   function resetDice() {
     setDice((oldDice) => {
-      return oldDice.map((oldDie) => {
+      return oldDice.map((oldDie, i) => {
         return {
-          isSuppressed: false,
           value: simulateDieToss(),
+          isSuppressed: false,
+          id: i
         };
       });
     });
   }
 
   function handleDieClick(e) {
+    console.log(dice);
     setDice((oldDice) => {
       return oldDice.map((oldDie) => {
         if (Number(e.target.id) === oldDie.id) {
@@ -73,19 +75,6 @@ function App() {
       return die.isSuppressed && die.value === value;
     });
   }
-
-  const diceElements = dice.map((die, i) => {
-    return (
-      <Grid item xs={12 / 5} key={i}>
-        <Die
-          value={die.value}
-          onClickHandler={handleDieClick}
-          isSuppressed={die.isSuppressed}
-          id={i}
-        />
-      </Grid>
-    );
-  });
 
   const victoryElements = (
     <Box
@@ -116,7 +105,7 @@ function App() {
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
       </Typography>
-      <Dice diceElements={diceElements} />
+      <Dice dice={dice} handleDieClick={handleDieClick} />
       <Button variant="contained" sx={{ fontSize: 30 }} onClick={tossDice}>
         Roll
       </Button>

@@ -2,7 +2,23 @@ import React from "react";
 
 import { Box, Grid } from "@mui/material";
 
-export default function Dice({diceElements}) {
+import Die from "./Die";
+
+export default function Dice({ dice, handleDieClick }) {
+  const diceElements = dice.map((die, i) => {
+    return (
+      <Grid item xs={12 / 5} key={i}>
+        <Die
+          value={die.value}
+          dice={dice}
+          onClickHandler={handleDieClick}
+          isSuppressed={die.isSuppressed}
+          id={i}
+        />
+      </Grid>
+    );
+  });
+
   return (
     <Box className="dice">
       <Grid
