@@ -1,9 +1,8 @@
 import React from "react";
 
-import { Typography, Button, Grid, Box } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 
 import Dice from "./components/Dice";
-import Die from "./components/Die";
 import "./App.css";
 
 function App() {
@@ -47,14 +46,13 @@ function App() {
         return {
           value: simulateDieToss(),
           isSuppressed: false,
-          id: i
+          id: i,
         };
       });
     });
   }
 
   function handleDieClick(e) {
-    console.log(dice);
     setDice((oldDice) => {
       return oldDice.map((oldDie) => {
         if (Number(e.target.id) === oldDie.id) {

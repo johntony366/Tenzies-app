@@ -10,7 +10,6 @@ export default function Dice({ dice, handleDieClick }) {
       <Grid item xs={12 / 5} key={i}>
         <Die
           value={die.value}
-          dice={dice}
           onClickHandler={handleDieClick}
           isSuppressed={die.isSuppressed}
           id={i}
